@@ -1,0 +1,88 @@
+[System]
+Name='intelligent flat'
+Type='mamdani'
+Version=2.0
+NumInputs=4
+NumOutputs=4
+NumRules=8
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='Temperature'
+Range=[1 100]
+NumMFs=5
+MF1='Very_low':'trimf',[0 5 7]
+MF2='low':'trimf',[7 15 21]
+MF3='medium':'trimf',[21 30 40]
+MF4='high':'trimf',[40 60 80]
+MF5='very_high':'trimf',[80 90 100]
+
+[Input2]
+Name='Illuminance'
+Range=[0 130000]
+NumMFs=3
+MF1='low':'trapmf',[-58500 -6500 6500 7070]
+MF2='medium':'trimf',[5240 17300 118824.209714726]
+MF3='high':'trimf',[118423.284502699 124000 189000]
+
+[Input3]
+Name='Pressure'
+Range=[0 110]
+NumMFs=3
+MF1='low':'trapmf',[-49.5 -5.5 5.5 20.0578257517348]
+MF2='medium':'trimf',[20.2 39.6 45.2467232074017]
+MF3='high':'trimf',[45.7555898226677 110 165]
+
+[Input4]
+Name='PIR'
+Range=[0 30]
+NumMFs=2
+MF1='no_motion':'trimf',[-12.5 0 10.0501156515035]
+MF2='motion_detected':'trimf',[4.93831919814957 15 27.5]
+
+[Output1]
+Name='heater/boilers'
+Range=[0 15]
+NumMFs=4
+MF1='Low_setting':'trimf',[0 3 5]
+MF2='med_settings':'trimf',[6 8 10]
+MF3='high_settings':'trimf',[11 13 15]
+MF4='off':'trimf',[0 0 0]
+
+[Output2]
+Name='blinds'
+Range=[0 10]
+NumMFs=3
+MF1='full_open':'trimf',[0 0 2]
+MF2='half_open':'trimf',[2 3 6]
+MF3='full_closed':'trimf',[0 5 10]
+
+[Output3]
+Name='microphone/camera/gps'
+Range=[0 1]
+NumMFs=2
+MF1='on':'trimf',[1 1 1]
+MF2='off':'trimf',[0 0 0]
+
+[Output4]
+Name='cooling_fans'
+Range=[0 15]
+NumMFs=4
+MF1='low_settings':'trimf',[0 3 5]
+MF2='med_settings':'trimf',[6 8 10]
+MF3='high_settings':'trimf',[11 13 15]
+MF4='off':'trimf',[0 0 0]
+
+[Rules]
+1 0 0 0, 3 0 0 4 (1) : 1
+3 0 0 0, 2 0 0 2 (1) : 1
+5 0 0 0, 4 0 0 3 (1) : 1
+2 1 0 0, 3 2 0 4 (1) : 1
+0 2 0 0, 3 2 0 0 (1) : 1
+0 3 0 0, 3 3 0 0 (1) : 1
+0 1 0 1, 1 3 0 4 (1) : 1
+3 1 0 2, 2 1 0 2 (1) : 1
